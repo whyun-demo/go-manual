@@ -76,40 +76,9 @@ go env -w GO111MODULE=on
 
 **图 3.5**
 
-go 语言的代码格式校验（比如说缩进）和代码安全性校验（比如定义的变量未被使用）是分成两个工具进行操作的，前者使用 [golint](https://github.com/golang/lint)，后者默认是 [gofmt](https://golang.org/cmd/gofmt/)。vs code 对于不符合 golint 规则的情况，会选择做在代码下面标识红色或者黄色的波浪线，但是对于不符合格式化校验的情况，却不予理睬，这个跟其他语言的情况不一样，比如说 js 中使用 eslint 工具时里面的规则同时对代码格式和安全性校验做约束，不管哪条预定的规则不满足，都会有波浪线提示。
-
-同时由于 gofmt 的格式可更改的选项比较少，比如说设置缩进就改不了，如果想改，就只能修改其源代码，比较麻烦，所以推荐使用 [goformat](https://github.com/mbenkmann/goformat) 这个包（需要你提前使用  go get github.com/mbenkmann/goformat/goformat 进行安装）。具体的设置步骤是找到菜单 `File` -> `Preferences` -> `Settings`
-
-![](images/settings.png)
-
-**图 3.6**
-
-点击下图所示的位置，打开 JSON 编辑界面
-
-![](images/open_config_json.png)
-
-**图 3.7**
-
-点击后会打开一个 settings.json 的配置文件，添加如下配置即可启用 goformat
-
-```json
-	"go.formatFlags": ["-style", "fmt.conf"],
-    "go.formatTool": "goformat"
-```
+> go 语言的代码格式校验（比如说缩进）和代码安全性校验（比如定义的变量未被使用）是分成两个工具进行操作的，前者使用 [golint](https://github.com/golang/lint)，后者默认是 [gofmt](https://golang.org/cmd/gofmt/)。vs code 对于不符合 golint 规则的情况，会选择做在代码下面标识红色或者黄色的波浪线，但是对于不符合格式化校验的情况，却不予理睬，这个跟其他语言的情况不一样，比如说 js 中使用 eslint 工具时里面的规则同时对代码格式和安全性校验做约束，不管哪条预定的规则不满足，都会有波浪线提示。
 
 
-
-![](images/modify_config_json.png)
-
-**图 3.8**
-
-这里指定了通过文件 `fmt.conf` 来配置格式化规则，需要在项目根目录添加 fmt.conf 文件：
-
-```
-indent=4
-```
-
-这里只配置了按照 4 个空格进行缩进，其他的配置规则可以参考官方文档 [goformat](https://github.com/mbenkmann/goformat)
 
 ## 4. 调试 GO
 
@@ -154,4 +123,25 @@ func main() {
 在第 6 行加断点，然后运行调试，会看到上图断点生效了。
 
 > 新版本的 Go 默认需要设置为 module 才能被编译，否则在运行的时候会提示 module 找不到，解决的方案是在项目根目录运行 `go mod init gitlab.com/your_package_name`， 运行完成后会在当前项目根目录生成一个 go.mod，再次运行调试就不会出错。
+
+如果你的项目的入口文件不在根目录，假设是在项目的 src 文件夹下，那么除了指定 `program` 属性外，还需要指定 `cwd` 属性：
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "cwd": "${workspaceFolder}/src/",
+            "program": "${workspaceFolder}/src/main.go"
+        }
+    ]
+}
+```
 
