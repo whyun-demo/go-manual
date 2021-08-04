@@ -123,6 +123,8 @@ func main() {
 在第 6 行加断点，然后运行调试，会看到上图断点生效了。
 
 > 新版本的 Go 默认需要设置为 module 才能被编译，否则在运行的时候会提示 module 找不到，解决的方案是在项目根目录运行 `go mod init gitlab.com/your_package_name`， 运行完成后会在当前项目根目录生成一个 go.mod，再次运行调试就不会出错。
+>
+> 如果使用了包含 c/c++ 的包，需要操作系统中有编译环境，debian 内核中可以通过 apt-get install build-essential -y 来安装，centos 下可以使用 yum groupinstall "Development Tools" 来安装。
 
 如果你的项目的入口文件不在根目录，假设是在项目的 src 文件夹下，那么除了指定 `program` 属性外，还需要指定 `cwd` 属性：
 
