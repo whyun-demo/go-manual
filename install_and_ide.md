@@ -89,8 +89,11 @@ package main
 
 import "fmt"
 
+var name = "世界"
+
 func main() {
-	fmt.Println("Hello, 世界")
+	year := 2021
+	fmt.Println("Hello", name, year)
 }
 
 ```
@@ -104,11 +107,12 @@ func main() {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
+            "name": "Launch",s
             "type": "go",
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/main.go",
+            "showGlobalVariables": true,
             "env": {},
             "args": []
         }
@@ -116,7 +120,7 @@ func main() {
 }
 ```
 
-![](images/debug_go.png)
+![](images/debug_go1.png)
 
 **图 4.1**
 
@@ -141,6 +145,7 @@ func main() {
             "request": "launch",
             "mode": "auto",
             "cwd": "${workspaceFolder}/src/",
+            "showGlobalVariables": true,
             "program": "${workspaceFolder}/src/main.go"
         }
     ]
