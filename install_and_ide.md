@@ -65,8 +65,6 @@ go env -w GOPROXY=https://goproxy.cn,direct
 
 > 如果开始安装后提示错误 `command 'go.tools.install' not found` ，则有可能是你先打开了 VSCode，然后安装的 GO 的运行时程序，这时候 VSCode 没有读取到追加到 PATH 环境变量的 GO 可执行程序所致。重启 VSCode，然后重新执行 **图 3.3** 即可。
 
-> 由于这些工具包都是托管在 github 上的，所以你需要一些魔法。
-
 不管用哪种方式触发安装命令行工具，都会弹出如下窗口：
 
 ![vscode12](images/install-ok.png)
